@@ -71,7 +71,7 @@
             margin-right: 30px; /* Space between image and text */
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             position: relative; /* Position context for avatar decoration */
-            z-index: 1; /* Ensure it is above the decoration */
+            z-index: 0; /* Ensure it stays behind the decoration */
         }
 
         .image-circle img {
@@ -80,7 +80,7 @@
             object-fit: cover;
         }
 
-        /* Discord avatar decoration (behind the image circle and 20% bigger) */
+        /* Discord avatar decoration (now in front of the image circle) */
         .avatar-decoration {
             position: absolute;
             top: -15px; /* 20% bigger, so 15px shift outside */
@@ -90,7 +90,7 @@
             background: url('https://cdn.discordapp.com/avatar-decoration-presets/a_c3cffc19e9784f7d0b005eecdf1b566e.png') no-repeat center center;
             background-size: contain;
             pointer-events: none; /* Ensure it doesn't block other interactions */
-            z-index: 0; /* Make sure it stays behind the profile image */
+            z-index: 1; /* Make sure the decoration appears in front */
         }
 
         .text-content {
@@ -178,8 +178,8 @@
     <!-- Main content with image, title, description, and clock -->
     <main>
         <div class="left-content">
-            <!-- Avatar decoration will be positioned behind the image circle -->
-            <div class="avatar-decoration" id="avatar-decoration"></div> <!-- Avatar decoration (behind) -->
+            <!-- Avatar decoration will be positioned in front of the image circle -->
+            <div class="avatar-decoration" id="avatar-decoration"></div> <!-- Avatar decoration (in front) -->
             <div class="image-circle" id="profile-image">
                 <img src="/img/profile.jpg" alt="Profile Picture" id="profile-pic">
             </div>
