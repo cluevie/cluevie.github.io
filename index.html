@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>clue's silly website</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        /* Import Poppins font */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body, html { 
+            height: 100%; 
+            font-family: 'Poppins', sans-serif; 
+            background: linear-gradient(to bottom, #ffc0cb, #ffffff); 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: space-between; 
+            font-size: 20px; 
+        }
+
+        /* Header styling */
+        .header {
+            display: flex;
+            justify-content: center;
+            padding: 1px;
+            box-shadow: 0 0px 0px rgba(0, 0, 0, 0.2);
+            font-size: 14px;
+        }
+
+        .header a {
+            color: #000;
+            padding: 12px 16px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            border-right: 1px solid #555;
+            transition: background-color 0.3s;
+        }
+
+        .header a:last-child {
+            border-right: none;
+        }
+
+        .header a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Main content styling */
+        main {
+            flex-grow: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%; /* Space from the sides */
+        }
+
+        .left-content {
+            display: flex;
+            align-items: center;
+            position: relative; /* Position context for the avatar decoration */
+        }
+
+        /* Circular image frame */
+        .image-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 30px; /* Space between image and text */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            position: relative; /* Position context for avatar decoration */
+            z-index: 1; /* Ensure it is above the decoration */
+        }
+
+        .image-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Discord avatar decoration (behind the image circle and 20% bigger) */
+        .avatar-decoration {
+            position: absolute;
+            top: -15px; /* 20% bigger, so 15px shift outside */
+            left: -15px; /* 20% bigger, so 15px shift outside */
+            width: 180px; /* 20% bigger than the avatar container (150px + 20%) */
+            height: 180px; /* Same as width to maintain aspect ratio */
+            background: url('https://cdn.discordapp.com/avatar-decoration-presets/a_c3cffc19e9784f7d0b005eecdf1b566e.png') no-repeat center center;
+            background-size: contain;
+            pointer-events: none; /* Ensure it doesn't block other interactions */
+            z-index: 0; /* Make sure it stays behind the profile image */
+        }
+
+        .text-content {
+            max-width: 500px; /* Limit width of the text */
+            white-space: normal;
+        }
+
+        .text {
+            font-size: 2.5em;
+            font-weight: 600;
+            color: #000;
+        }
+
+        .beta-tester {
+            font-size: 0.8em; /* Smaller font size for beta tester text */
+            color: #555;
+        }
+
+        .description {
+            font-size: 1.1em;
+            color: #555;
+            margin-top: 5px; /* Spacing between beta tester and description */
+        }
+
+        /* Clock styling */
+        .clock-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-weight: 300;
+            margin-left: 20px; /* Adjust margin to move left */
+        }
+
+        .clock {
+            font-size: 6em; /* Increase clock size */
+            color: #333;
+            font-weight: 300; /* Thin font */
+        }
+
+        .timezone {
+            font-size: 1.2em;
+            font-weight: 600; /* Bolder UTC+2 */
+            color: #333;
+            margin-top: -5px; /* Negative margin to reduce gap with clock */
+        }
+
+        footer {
+            text-align: right;
+            padding: 10px 20px;
+            color: #808080;
+        }
+
+        /* Mobile responsiveness */
+        /* This will apply only if 'mobile' class is added to body */
+        .mobile main {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .mobile .left-content {
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        .mobile .clock-container {
+            margin-left: 0;
+        }
+
+        .mobile .clock {
+            font-size: 4em; /* Adjust clock size for mobile */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header section -->
+    <div class="header">
+        <a href="/">Home</a>
+        <a href="/blog">Blog</a>
+        <a href="/stuff">Stuff</a>
+        <a href="/credits">Credits</a>
+    </div>
+
+    <!-- Main content with image, title, description, and clock -->
+    <main>
+        <div class="left-content">
+            <!-- Avatar decoration will be positioned behind the image circle -->
+            <div class="avatar-decoration" id="avatar-decoration"></div> <!-- Avatar decoration (behind) -->
+            <div class="image-circle" id="profile-image">
+                <img src="/img/profile.jpg" alt="Profile Picture" id="profile-pic">
+            </div>
+            <div class="text-content">
+                <div class="text">cluevie</div>
+                <div class="beta-tester">14 - 🏳️‍⚧️ - Beta Tester/Support Team at iCreate Pro</div>
+                <div class="description">im pretty sure im quite silly</div>
+            </div>
+        </div>
+        <div class="clock-container">
+            <div class="clock" id="clock">14:48</div>
+            <div class="timezone">UTC+2 • (My Timezone)</div> <!-- UTC text here -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        Made with ❤️ • &copy; Daniel (Chloe) Withaker 2024
+    </footer>
+
+    <!-- JavaScript for live clock, mobile detection, and avatar decoration -->
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getUTCHours() + 2).padStart(2, '0'); // Change to UTC+2
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            document.getElementById('clock').textContent = `${hours}:${minutes}`;
+        }
+
+        function detectMobile() {
+            const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+            if (isMobile) {
+                document.body.classList.add('mobile'); // Add 'mobile' class to body if mobile
+            }
+        }
+
+        // Switch between static image and GIF
+        function toggleImage() {
+            const img = document.getElementById('profile-pic');
+            const currentSrc = img.getAttribute('src');
+            
+            // Check current source and switch
+            if (currentSrc === '/img/profile.jpg') {
+                img.setAttribute('src', '/img/petpet.gif'); // Replace with the path to your GIF
+            } else {
+                img.setAttribute('src', '/img/profile.jpg'); // Switch back to the static image
+            }
+        }
+
+        // Add event listener to the image for click
+        document.getElementById('profile-image').addEventListener('click', toggleImage);
+
+        setInterval(updateClock, 1000); // Update every second
+        updateClock(); // Initial call to display clock immediately
+        detectMobile(); // Check for mobile on load
+    </script>
+
+</body>
+</html>
